@@ -1,0 +1,16 @@
+:host { display: block; }
+.register-page { align-items: center; display: flex; justify-content: center; min-height: calc(100dvh - 145px); padding: 3rem 1.25rem; }
+.register-panel { background: #fff; border: 1px solid #d8ebe8; border-radius: 12px; box-shadow: 0 20px 50px rgba(15, 118, 110, .1); max-width: 500px; padding: clamp(1.5rem, 5vw, 3rem); width: 100%; }
+.eyebrow { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; margin: 0 0 .5rem; text-transform: uppercase; }
+h1 { color: #134e4a; font-size: 2.25rem; margin: 0 0 .75rem; }
+.intro, .login-link { color: #52706e; line-height: 1.5; }
+form { display: grid; gap: 1.1rem; margin-top: 2rem; }
+label { color: #24504c; display: grid; font-size: .9rem; font-weight: 700; gap: .45rem; }
+input { background: #fbfefd; border: 1px solid #bad5d1; border-radius: 6px; font: inherit; min-height: 3rem; padding: 0 .8rem; }
+input:focus { border-color: #0d9488; outline: 3px solid rgba(20, 184, 166, .2); }
+input.invalid { border-color: #c2410c; }
+.error, .register-error { color: #b45309; font-size: .8rem; }
+.register-error { font-weight: 700; margin: 0; }
+button { background: #0f766e; border: 0; border-radius: 6px; color: #fff; cursor: pointer; font: inherit; font-weight: 800; min-height: 3.1rem; }
+.login-link { font-size: .9rem; margin: 1.5rem 0 0; text-align: center; }
+a { color: #0f766e; font-weight: 800; }

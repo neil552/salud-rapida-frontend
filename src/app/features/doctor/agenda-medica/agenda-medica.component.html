@@ -1,0 +1,25 @@
+<main class="agenda-page">
+  <div class="page-heading">
+    <div><p class="eyebrow">Panel médico</p><h1>Agenda de consultas</h1></div>
+    <label>Filtrar por fecha <input type="date" [value]="fechaFiltro()" (input)="fechaFiltro.set($any($event.target).value)" /></label>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Paciente</th><th>Fecha</th><th>Hora</th><th>Especialidad</th><th>Estado</th><th>Acciones</th></tr></thead>
+      <tbody>
+        @for (cita of citasFiltradas(); track cita.id) {
+          <tr>
+            <td>{{ cita.pacienteNombre }}<small>{{ cita.pacienteDni }}</small></td>
+            <td>{{ cita.fecha }}</td><td>{{ cita.hora }}</td><td>{{ cita.especialidad }}</td>
+            <td><span class="status">{{ cita.estado }}</span></td>
+            <td class="actions">
+              <button type="button" (click)="actualizarEstado(cita, 'CONFIRMADA')">Confirmar</button>
+              <button type="button" (click)="actualizarEstado(cita, 'ATENDIDA')">Atendida</button>
+              <button type="button" class="danger" (click)="actualizarEstado(cita, 'CANCELADA')">Cancelar</button>
+            </td>
+          </tr>
+        } @empty { <tr><td colspan="6" class="empty">No hay citas para esta fecha.</td></tr> }
+      </tbody>
+    </table>
+  </div>
+</main>

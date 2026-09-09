@@ -1,0 +1,83 @@
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { CitaModel, EstadoCita } from '../models/cita.model';
+
+const CITAS_INICIALES: CitaModel[] = [
+  {
+    id: 'cita-demo-1',
+    pacienteNombre: 'Paciente demo',
+    pacienteDni: '45678912',
+    pacienteEmail: 'paciente@saludrapida.pe',
+    medicoId: 2,
+    medicoNombre: 'Jorge Salazar',
+    especialidad: 'Cardiología',
+    fecha: '2026-09-15',
+    hora: '08:30 AM',
+    estado: 'PENDIENTE'
+  }
+];
+
+@Injectable({ providedIn: 'root' })
+export class CitaService {
+  private readonly storageKey = 'salud-rapida.citas';
+  private readonly citasSubject = new BehaviorSubject<CitaModel[]>(this.cargarCitas());
+
+  private cargarCitas(): CitaModel[] {
+    const citasGuardadas = localStorage.getItem(this.storageKey);
+    if (!citasGuardadas) {
+      return CITAS_INICIALES;
+    }
+
+    try {
+      const citas = JSON.parse(citasGuardadas) as unknown;
+      return Array.isArray(citas) ? citas as CitaModel[] : CITAS_INICIALES;
+    } catch {
+      localStorage.removeItem(this.storageKey);
+      return CITAS_INICIALES;
+    }
+  }
+
+  private guardarCitas(citas: CitaModel[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(citas));
+  }
+
+  getCitas(): Observable<CitaModel[]> {
+    return this.citasSubject.asObservable();
+  }
+
+  crearCita(cita: CitaModel): Observable<CitaModel> {
+    const nuevaCita: CitaModel = {
+      ...cita,
+      id: cita.id ?? crypto.randomUUID(),
+      estado: cita.estado ?? 'PENDIENTE'
+    };
+
+    const citas = [...this.citasSubject.value, nuevaCita];
+    this.citasSubject.next(citas);
+    this.guardarCitas(citas);
+    return of(nuevaCita);
+  }
+
+  cancelarCita(id: string): Observable<boolean> {
+    return this.cambiarEstado(id, 'CANCELADA');
+  }
+
+  cambiarEstado(id: string, estado: EstadoCita): Observable<boolean> {
+    let actualizada = false;
+    const citas = this.citasSubject.value.map((cita) => {
+      if (cita.id !== id) {
+        return cita;
+      }
+
+      actualizada = true;
+      return { ...cita, estado };
+    });
+
+    if (actualizada) {
+      this.citasSubject.next(citas);
+      this.guardarCitas(citas);
+    }
+
+    return of(actualizada);
+  }
+}

@@ -1,0 +1,10 @@
+:host { color: #173c39; display: block; min-height: 100dvh; }
+.app-header { align-items: center; background: rgba(255, 255, 255, .92); border-bottom: 1px solid #d8ebe8; display: flex; justify-content: space-between; padding: 1rem clamp(1.25rem, 5vw, 4rem); position: sticky; top: 0; z-index: 10; }
+.brand { align-items: center; color: #134e4a; display: flex; font-weight: 900; gap: .6rem; text-decoration: none; }
+.brand small { color: #0f766e; font-size: .65rem; letter-spacing: .08em; }
+.brand-mark { align-items: center; background: #0f766e; border-radius: 6px; color: #fff; display: flex; font-size: 1.5rem; height: 2rem; justify-content: center; width: 2rem; }
+nav { display: flex; gap: 1.25rem; }
+nav a { color: #52706e; font-size: .9rem; font-weight: 700; text-decoration: none; }
+nav a.active, nav a:hover { color: #0f766e; }
+.app-footer { border-top: 1px solid #d8ebe8; color: #6b8582; font-size: .8rem; padding: 1.5rem clamp(1.25rem, 5vw, 4rem); text-align: center; }
+@media (max-width: 620px) { .app-header { align-items: start; flex-direction: column; gap: .8rem; } nav { gap: .8rem; } }

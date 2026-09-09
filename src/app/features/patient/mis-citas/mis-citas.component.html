@@ -1,0 +1,20 @@
+<main class="appointments-page">
+  <header class="page-heading">
+    <div><p class="eyebrow">Área del paciente</p><h1>Mis citas</h1><p>Consulta el estado de tus reservas y gestiona tus próximas atenciones.</p></div>
+    <a class="new-link" routerLink="/paciente/reservar">+ Nueva cita</a>
+  </header>
+
+  @if (citasDelPaciente().length) {
+    <section class="appointment-list" aria-label="Lista de mis citas">
+      @for (cita of citasDelPaciente(); track cita.id) {
+        <article class="appointment-card">
+          <div class="date-block"><strong>{{ cita.fecha | fechaCorta }}</strong><span>{{ cita.hora }}</span></div>
+          <div class="appointment-info"><h2>{{ cita.medicoNombre }}</h2><p>{{ cita.especialidad }}</p><small>Paciente: {{ cita.pacienteNombre }}</small></div>
+          <div class="appointment-actions"><span class="status" [class.cancelled]="cita.estado === 'CANCELADA'">{{ cita.estado }}</span><button type="button" [disabled]="cita.estado === 'CANCELADA' || cita.estado === 'ATENDIDA'" (click)="cancelar(cita)">Cancelar</button></div>
+        </article>
+      }
+    </section>
+  } @else {
+    <section class="empty-state"><h2>Aún no tienes citas</h2><p>Encuentra un especialista y agenda tu primera atención.</p><a routerLink="/paciente/buscar">Buscar médico</a></section>
+  }
+</main>

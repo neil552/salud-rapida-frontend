@@ -1,0 +1,29 @@
+<header class="app-header">
+  @if (authService.usuario$ | async; as usuario) {
+  <a class="brand" [routerLink]="usuario.rol === 'ADMIN' ? '/admin/dashboard' : usuario.rol === 'MEDICO' ? '/medico/agenda' : '/paciente/buscar'" aria-label="Salud Rápida, inicio">
+    <span class="brand-mark" aria-hidden="true">+</span>
+    <span>Salud Rápida <small>S.A.</small></span>
+  </a>
+  } @else {
+  <a class="brand" routerLink="/login" aria-label="Salud Rápida, inicio">
+    <span class="brand-mark" aria-hidden="true">+</span>
+    <span>Salud Rápida <small>S.A.</small></span>
+  </a>
+  }
+  @if (showNavigation()) {
+  <nav aria-label="Navegación principal">
+    @if (authService.usuario$ | async; as usuario) {
+      @if (usuario.rol === 'PACIENTE') {
+        <a routerLink="/paciente/buscar" routerLinkActive="active">Buscar médico</a>
+        <a routerLink="/paciente/reservar" routerLinkActive="active">Reservar cita</a>
+        <a routerLink="/paciente/mis-citas" routerLinkActive="active">Mis citas</a>
+      }
+      @if (usuario.rol === 'MEDICO') { <a routerLink="/medico/agenda" routerLinkActive="active">Mi agenda</a> }
+      @if (usuario.rol === 'ADMIN') { <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a> }
+      <button type="button" class="logout" (click)="cerrarSesion()">Salir</button>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active">Ingresar</a>
+    }
+  </nav>
+  }
+</header>

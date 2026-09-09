@@ -1,0 +1,20 @@
+<main class="dashboard-page">
+  <header class="dashboard-heading">
+    <div><p class="eyebrow">Administración</p><h1>Resumen de Salud Rápida</h1><p>Supervisa las citas registradas en la plataforma.</p></div>
+    <a routerLink="/paciente/buscar">Volver al portal</a>
+  </header>
+  <section class="metrics" aria-label="Resumen de citas">
+    <article><span>Total de citas</span><strong>{{ citas().length }}</strong></article>
+    <article><span>Pendientes</span><strong>{{ contarPorEstado('PENDIENTE') }}</strong></article>
+    <article><span>Confirmadas</span><strong>{{ contarPorEstado('CONFIRMADA') }}</strong></article>
+    <article><span>Atendidas</span><strong>{{ contarPorEstado('ATENDIDA') }}</strong></article>
+  </section>
+  <section class="recent" aria-labelledby="recent-title">
+    <h2 id="recent-title">Citas recientes</h2>
+    @if (citas().length) {
+      <div class="table-wrap"><table><thead><tr><th>Paciente</th><th>Médico</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>
+        @for (cita of citas(); track cita.id) { <tr><td>{{ cita.pacienteNombre }}</td><td>{{ cita.medicoNombre }}</td><td>{{ cita.fecha }} · {{ cita.hora }}</td><td><span class="status">{{ cita.estado }}</span></td></tr> }
+      </tbody></table></div>
+    } @else { <p class="empty">Todavía no hay citas registradas.</p> }
+  </section>
+</main>

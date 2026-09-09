@@ -1,0 +1,21 @@
+<main class="search-page">
+  <section class="hero-copy">
+    <p class="eyebrow">Atención que sí llega a tiempo</p>
+    <h1>Encuentra al especialista que necesitas.</h1>
+    <p>Reserva una cita médica de forma clara, rápida y segura.</p>
+  </section>
+  <section aria-labelledby="doctors-title" class="doctor-section">
+    <div class="section-heading"><h2 id="doctors-title">Especialistas disponibles</h2><span>{{ medicos().length }} médicos</span></div>
+    <div class="doctor-grid">
+      @for (medico of medicos(); track medico.id) {
+        <article class="doctor-card">
+          <div class="avatar" aria-hidden="true">{{ medico.nombreCompleto.charAt(0) }}</div>
+          <p class="specialty">{{ medico.especialidad }}</p>
+          <h3>{{ medico.nombreCompleto }}</h3>
+          <p class="cmp">CMP {{ medico.cmp }}</p>
+          <a class="book-link" [routerLink]="['/paciente/reservar']">Reservar cita <span aria-hidden="true">&rarr;</span></a>
+        </article>
+      }
+    </div>
+  </section>
+</main>
