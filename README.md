@@ -1,0 +1,1 @@
+# salud-rapida-frontend
