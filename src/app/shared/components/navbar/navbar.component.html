@@ -20,6 +20,7 @@
       }
       @if (usuario.rol === 'MEDICO') { <a routerLink="/medico/agenda" routerLinkActive="active">Mi agenda</a> }
       @if (usuario.rol === 'ADMIN') { <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a> }
+      <button type="button" class="profile-trigger" (click)="abrirPerfil()">Mi perfil</button>
       <button type="button" class="logout" (click)="cerrarSesion()">Salir</button>
     } @else {
       <a routerLink="/login" routerLinkActive="active">Ingresar</a>
@@ -27,3 +28,4 @@
   </nav>
   }
 </header>
+@if (profileOpen()) { <app-profile (closed)="cerrarPerfil()" /> }

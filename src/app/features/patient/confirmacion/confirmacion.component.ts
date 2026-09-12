@@ -16,11 +16,11 @@ import { RouterLink } from '@angular/router';
   styles: `
     :host { display: block; }
     .confirmation { margin: 0 auto; max-width: 600px; padding: 8rem 1.25rem; text-align: center; }
-    .check { align-items: center; background: #ccfbf1; border-radius: 50%; color: #0f766e; display: flex; font-size: 2rem; height: 4rem; justify-content: center; margin: 0 auto 1.5rem; width: 4rem; }
-    .eyebrow { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { color: #134e4a; font-size: clamp(2rem, 5vw, 3.5rem); margin: .5rem 0 1rem; }
-    p:not(.eyebrow) { color: #52706e; font-size: 1.05rem; line-height: 1.6; }
-    a { color: #0f766e; display: inline-block; font-weight: 800; margin-top: 1.5rem; }
+    .check { align-items: center; background: #dbeafe; border-radius: 50%; color: #2563eb; display: flex; font-size: 2rem; height: 4rem; justify-content: center; margin: 0 auto 1.5rem; width: 4rem; }
+    .eyebrow { color: #2563eb; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { color: #12304a; font-size: clamp(2rem, 5vw, 3.5rem); margin: .5rem 0 1rem; }
+    p:not(.eyebrow) { color: #60758a; font-size: 1.05rem; line-height: 1.6; }
+    a { color: #2563eb; display: inline-block; font-weight: 800; margin-top: 1.5rem; }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

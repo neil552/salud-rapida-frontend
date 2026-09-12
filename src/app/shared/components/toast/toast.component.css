@@ -1,4 +1,4 @@
 :host { bottom: 1.25rem; display: block; position: fixed; right: 1.25rem; z-index: 20; }
-.toast { align-items: center; background: #134e4a; border-radius: 8px; box-shadow: 0 12px 30px rgba(19, 78, 74, .24); color: #fff; display: flex; gap: .7rem; max-width: min( min(24rem, calc(100vw - 2.5rem)), 24rem); padding: .85rem 1rem; }
-.toast > span:first-child { align-items: center; background: #5eead4; border-radius: 50%; color: #134e4a; display: flex; flex: 0 0 auto; font-weight: 800; height: 1.4rem; justify-content: center; width: 1.4rem; }
-button { background: transparent; border: 0; color: #ccfbf1; cursor: pointer; font-size: 1.25rem; line-height: 1; margin-left: auto; }
+.toast { align-items: center; background: #12304a; border-radius: 10px; box-shadow: 0 12px 30px rgba(18, 48, 74, .24); color: #fff; display: flex; gap: .7rem; max-width: min( min(24rem, calc(100vw - 2.5rem)), 24rem); padding: .85rem 1rem; }
+.toast > span:first-child { align-items: center; background: #f4a08d; border-radius: 50%; color: #12304a; display: flex; flex: 0 0 auto; font-weight: 800; height: 1.4rem; justify-content: center; width: 1.4rem; }
+button { background: transparent; border: 0; color: #dbeafe; cursor: pointer; font-size: 1.25rem; line-height: 1; margin-left: auto; }

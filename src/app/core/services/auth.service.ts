@@ -119,6 +119,40 @@ export class AuthService {
     return this.usuarioSubject.value;
   }
 
+  updateProfile(nombre: string, email: string): { success: boolean; message?: string } {
+    const usuarioActual = this.usuarioSubject.value;
+    if (!usuarioActual) {
+      return { success: false, message: 'No hay una sesión activa.' };
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const emailEnUso = this.getRegisteredPatients().some((patient) =>
+      patient.email === normalizedEmail && patient.id !== usuarioActual.id
+    );
+    if (emailEnUso) {
+      return { success: false, message: 'Este correo ya está registrado.' };
+    }
+
+    const actualizado: UsuarioModel = {
+      ...usuarioActual,
+      nombre: nombre.trim(),
+      email: normalizedEmail
+    };
+    this.usuarioSubject.next(actualizado);
+    localStorage.setItem(this.storageKey, JSON.stringify(actualizado));
+
+    if (actualizado.rol === 'PACIENTE') {
+      const pacientes = this.getRegisteredPatients().map((patient) =>
+        patient.id === actualizado.id
+          ? { ...patient, nombre: actualizado.nombre, email: actualizado.email }
+          : patient
+      );
+      localStorage.setItem(this.patientsKey, JSON.stringify(pacientes));
+    }
+
+    return { success: true };
+  }
+
   hasRole(role: RolUsuario): boolean {
     return this.usuarioSubject.value?.rol === role;
   }

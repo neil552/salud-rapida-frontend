@@ -63,7 +63,7 @@
           <span class="field-title">Horarios de {{ medico.nombreCompleto }}</span>
           <div class="time-grid" aria-label="Seleccionar horario de cita">
             @for (hora of medico.disponibilidad; track hora) {
-              <button type="button" class="time-option" [class.selected]="reservaForm.controls.hora.value === hora" [appHighlightSlot]="reservaForm.controls.hora.value === hora" (click)="seleccionarHora(hora)">{{ hora }}</button>
+              <button type="button" class="time-option" [class.selected]="reservaForm.controls.hora.value === hora" [class.occupied]="horarioEstaOcupado(hora)" [disabled]="horarioEstaOcupado(hora)" [appHighlightSlot]="reservaForm.controls.hora.value === hora" (click)="seleccionarHora(hora)">{{ hora }} @if (horarioEstaOcupado(hora)) { <small>Ocupado</small> }</button>
             }
           </div>
         </div>
@@ -88,6 +88,13 @@
       </label>
     </div>
 
+    @if (medicoSeleccionado(); as medico) {
+      <aside class="booking-summary" aria-label="Resumen de la reserva">
+        <span class="summary-label">Resumen de tu reserva</span>
+        <strong>{{ medico.nombreCompleto }}</strong>
+        <span>{{ medico.especialidad }} · {{ reservaForm.controls.fecha.value || 'Selecciona una fecha' }} · {{ reservaForm.controls.hora.value || 'Selecciona un horario' }}</span>
+      </aside>
+    }
     <button class="primary-button" type="submit">Confirmar reserva</button>
   </form>
 </main>

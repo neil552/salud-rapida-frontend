@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CitaModel, EstadoCita } from '../../../core/models/cita.model';
 import { CitaService } from '../../../core/services/cita.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -14,6 +14,10 @@ export class AgendaMedicaComponent {
   private readonly authService = inject(AuthService);
   readonly citas = signal<CitaModel[]>([]);
   readonly fechaFiltro = signal('');
+  readonly citasVisibles = computed(() => this.citasFiltradas());
+  readonly pendientes = computed(() => this.citasVisibles().filter((cita) => cita.estado === 'PENDIENTE').length);
+  readonly confirmadas = computed(() => this.citasVisibles().filter((cita) => cita.estado === 'CONFIRMADA').length);
+  readonly atendidas = computed(() => this.citasVisibles().filter((cita) => cita.estado === 'ATENDIDA').length);
 
   constructor() {
     this.citaService.getCitas().subscribe((citas) => this.citas.set(citas));

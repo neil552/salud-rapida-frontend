@@ -1,0 +1,30 @@
+<div class="profile-backdrop" role="presentation" (click)="cerrar()">
+<main class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" (click)="$event.stopPropagation()">
+  <button type="button" class="close-button" aria-label="Cerrar perfil" (click)="cerrar()">×</button>
+  <header class="profile-hero">
+    <div class="profile-avatar" aria-hidden="true">{{ usuario?.nombre?.charAt(0) }}</div>
+    <div><p class="eyebrow">Cuenta personal</p><h1 id="profile-title">Mi perfil</h1><p>Administra tus datos dentro de Salud Rápida.</p></div>
+  </header>
+
+  <section class="profile-layout">
+    <article class="profile-card identity-card">
+      <div class="card-heading"><div><p class="eyebrow">Identidad</p><h2>{{ usuario?.nombre }}</h2></div><span class="role-badge">{{ rolTexto(usuario?.rol) }}</span></div>
+      <div class="identity-row"><span>Correo</span><strong>{{ usuario?.email }}</strong></div>
+      <div class="identity-row"><span>Cuenta</span><strong>Activa</strong></div>
+      @if (usuario?.rol === 'MEDICO') { <div class="identity-row"><span>Identificador profesional</span><strong>MED-{{ usuario?.medicoId }}</strong></div> }
+      @if (usuario?.rol === 'ADMIN') { <div class="identity-row"><span>Nivel de acceso</span><strong>Control total</strong></div> }
+      @if (usuario?.rol === 'PACIENTE') { <div class="identity-row"><span>Tipo de cuenta</span><strong>Paciente registrado</strong></div> }
+    </article>
+
+    <form class="profile-card edit-card" [formGroup]="profileForm" (ngSubmit)="guardar()" novalidate>
+      <div class="card-heading"><div><p class="eyebrow">Configuración</p><h2>Datos personales</h2></div></div>
+      <label>Nombre completo<input type="text" formControlName="nombre" [class.invalid]="campoInvalido('nombre')" />@if (campoInvalido('nombre')) { <span class="error">Ingresa al menos 3 caracteres.</span> }</label>
+      <label>Correo electrónico<input type="email" formControlName="email" [class.invalid]="campoInvalido('email')" />@if (campoInvalido('email')) { <span class="error">Ingresa un correo válido.</span> }</label>
+      @if (error()) { <p class="form-error" role="alert">{{ error() }}</p> }
+      @if (guardado()) { <p class="success" role="status">Tus datos fueron actualizados.</p> }
+      <button type="submit">Guardar cambios</button>
+    </form>
+  </section>
+
+</main>
+</div>

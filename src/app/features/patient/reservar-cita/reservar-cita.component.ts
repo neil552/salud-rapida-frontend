@@ -96,8 +96,17 @@ export class ReservarCitaComponent {
   }
 
   seleccionarHora(hora: string): void {
+    if (this.horarioEstaOcupado(hora)) {
+      return;
+    }
     this.reservaForm.controls.hora.setValue(hora);
     this.reservaForm.controls.hora.markAsTouched();
+  }
+
+  horarioEstaOcupado(hora: string): boolean {
+    const medicoId = this.reservaForm.controls.medicoId.value;
+    const fecha = this.reservaForm.controls.fecha.value;
+    return medicoId > 0 && Boolean(fecha) && this.citaService.horarioOcupado(medicoId, fecha, hora);
   }
 
   enviarReserva(): void {

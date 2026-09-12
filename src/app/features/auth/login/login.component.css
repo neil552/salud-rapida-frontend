@@ -1,8 +1,9 @@
 :host { display: block; }
-.login-page { align-items: center; display: flex; justify-content: center; min-height: calc(100dvh - 145px); padding: 3rem 1.25rem; }
-.login-panel { background: #fff; border: 1px solid #d8ebe8; border-radius: 12px; box-shadow: 0 20px 50px rgba(15, 118, 110, .1); max-width: 460px; padding: clamp(1.5rem, 5vw, 3rem); width: 100%; }
+.login-page { align-items: stretch; display: grid; gap: clamp(2rem, 7vw, 6rem); grid-template-columns: minmax(0, 1fr) minmax(360px, 460px); margin: 0 auto; max-width: 1180px; min-height: calc(100dvh - 145px); padding: clamp(3rem, 7vw, 6rem) 1.25rem; }
+.login-page::before { align-self: center; background: linear-gradient(140deg, #134e4a 0%, #0f766e 66%, #14b8a6 100%); border-radius: 22px; box-shadow: 0 24px 55px rgba(15, 118, 110, .2); color: #fff; content: 'Tu salud merece una atención\A clara, cercana y a tiempo.'; display: flex; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 4.4rem); font-weight: 600; line-height: .98; min-height: 33rem; padding: clamp(1.5rem, 5vw, 3rem); white-space: pre-wrap; }
+.login-panel { align-self: center; background: rgba(255, 255, 255, .88); border: 1px solid rgba(216, 235, 232, .95); border-radius: 18px; box-shadow: 0 24px 55px rgba(15, 118, 110, .12); max-width: 460px; padding: clamp(1.5rem, 5vw, 3rem); width: 100%; }
 .back-link { color: #0f766e; font-size: .85rem; font-weight: 700; text-decoration: none; }
-.eyebrow { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; margin: 3rem 0 .5rem; text-transform: uppercase; }
+.eyebrow { color: #0f766e; font-size: .7rem; font-weight: 800; letter-spacing: .13em; margin: 0 0 .6rem; text-transform: uppercase; }
 h1 { color: #134e4a; font-size: 2.25rem; margin: 0 0 .75rem; }
 .intro, .demo-note, .register-link { color: #52706e; line-height: 1.5; }
 form { display: grid; gap: 1.25rem; margin-top: 2rem; }
@@ -12,7 +13,20 @@ input:focus, select:focus { border-color: #0d9488; outline: 3px solid rgba(20, 1
 input.invalid { border-color: #c2410c; }
 .error, .login-error { color: #b45309; font-size: .8rem; }
 .login-error { font-weight: 700; margin: 0; }
-button { background: #0f766e; border: 0; border-radius: 6px; color: #fff; cursor: pointer; font: inherit; font-weight: 800; min-height: 3.1rem; }
+button { background: linear-gradient(135deg, #0f766e, #0d9488); border: 0; border-radius: 7px; box-shadow: 0 8px 16px rgba(13, 148, 136, .18); color: #fff; cursor: pointer; font: inherit; font-weight: 800; min-height: 3.1rem; } button:hover { box-shadow: 0 12px 22px rgba(13, 148, 136, .27); transform: translateY(-1px); }
 .demo-note { font-size: .8rem; margin-bottom: 0; margin-top: 1.5rem; }
 .register-link { font-size: .9rem; margin: 1.5rem 0 0; text-align: center; }
 .register-link a { color: #0f766e; font-weight: 800; }
+@media (max-width: 760px) { .login-page { display: flex; min-height: auto; padding: 2rem 1.25rem 4rem; } .login-page::before { display: none; } .login-panel { max-width: 520px; } }
+
+/* Clinical blue and coral visual theme */
+.login-page::before { background: linear-gradient(140deg, #12304a, #2563eb 70%, #e87961); }
+.login-panel { border-color: #d5e2ee; box-shadow: 0 24px 55px rgba(18, 48, 74, .12); }
+.eyebrow, .register-link a { color: #2563eb; }
+h1 { color: #12304a; }
+.intro, .demo-note, .register-link { color: #60758a; }
+input { border-color: #bfd0df; color: #12304a; }
+input:focus { border-color: #2563eb; outline-color: rgba(37, 99, 235, .2); }
+button { background: linear-gradient(135deg, #12304a, #2563eb); box-shadow: 0 8px 16px rgba(37, 99, 235, .2); }
+button:hover { box-shadow: 0 12px 22px rgba(37, 99, 235, .28); }
+.password-field { display: grid; position: relative; }.password-field input { padding-right: 5rem; width: 100%; }.password-toggle { background: transparent; border: 0; box-shadow: none; color: #2563eb; font-size: .75rem; min-height: auto; padding: .3rem; position: absolute; right: .55rem; top: .55rem; }.password-toggle:hover { box-shadow: none; transform: none; }

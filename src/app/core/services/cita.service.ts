@@ -45,6 +45,22 @@ export class CitaService {
     return this.citasSubject.asObservable();
   }
 
+  horarioOcupado(medicoId: number, fecha: string, hora: string): boolean {
+    return this.citasSubject.value.some((cita) =>
+      cita.medicoId === medicoId && cita.fecha === fecha && cita.hora === hora && cita.estado !== 'CANCELADA'
+    );
+  }
+
+  actualizarDatosPaciente(emailAnterior: string, nombre: string, email: string): void {
+    const citas = this.citasSubject.value.map((cita) =>
+      cita.pacienteEmail === emailAnterior
+        ? { ...cita, pacienteNombre: nombre, pacienteEmail: email }
+        : cita
+    );
+    this.citasSubject.next(citas);
+    this.guardarCitas(citas);
+  }
+
   crearCita(cita: CitaModel): Observable<CitaModel> {
     const nuevaCita: CitaModel = {
       ...cita,

@@ -1,6 +1,6 @@
 :host { display: block; }
-.search-page { margin: 0 auto; max-width: 1100px; padding: 3.5rem 1.25rem 5rem; }
-.hero-copy { max-width: 680px; padding: 1rem 0 3.5rem; }
+.search-page { margin: 0 auto; max-width: 1180px; padding: clamp(2.5rem, 7vw, 5.5rem) 1.25rem 6rem; }
+.hero-copy { max-width: 760px; padding: 1rem 0 4rem; }
 .eyebrow, .specialty { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 h1 { color: #134e4a; font-size: clamp(2.4rem, 7vw, 5.5rem); letter-spacing: -.04em; line-height: .98; margin: .75rem 0 1.25rem; }
 .hero-copy > p:last-child { color: #52706e; font-size: 1.15rem; }
@@ -8,10 +8,18 @@ h1 { color: #134e4a; font-size: clamp(2.4rem, 7vw, 5.5rem); letter-spacing: -.04
 h2 { color: #173c39; font-size: 1.35rem; margin: 0; }
 .section-heading span { color: #52706e; font-size: .9rem; }
 .doctor-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1rem; }
-.doctor-card { background: #fff; border: 1px solid #d8ebe8; border-radius: 10px; padding: 1.25rem; }
+.doctor-card { background: rgba(255, 255, 255, .92); border: 1px solid #d8ebe8; border-radius: 14px; box-shadow: 0 12px 28px rgba(15, 118, 110, .06); padding: 1.35rem; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.doctor-card:hover { border-color: #82d8ca; box-shadow: 0 18px 34px rgba(15, 118, 110, .12); transform: translateY(-4px); }
 .avatar { align-items: center; background: #ccfbf1; border-radius: 50%; color: #0f766e; display: flex; font-size: 1.3rem; font-weight: 800; height: 3rem; justify-content: center; width: 3rem; }
 .specialty { margin: 1.25rem 0 .35rem; }
 h3 { color: #173c39; font-size: 1.15rem; margin: 0; }
 .cmp { color: #6b8582; font-size: .85rem; }
 .book-link { color: #0f766e; display: inline-block; font-weight: 800; margin-top: 1rem; text-decoration: none; }
 @media (max-width: 760px) { .doctor-grid { grid-template-columns: 1fr; } }
+
+.eyebrow, .specialty, .book-link { color: #2563eb; }
+h1, h2, h3 { color: #12304a; }
+.hero-copy > p:last-child, .section-heading span, .cmp { color: #60758a; }
+.doctor-card { border-color: #d5e2ee; box-shadow: 0 12px 28px rgba(18, 48, 74, .06); }
+.doctor-card:hover { border-color: #93b4e8; box-shadow: 0 18px 34px rgba(37, 99, 235, .12); }
+.avatar { background: #dbeafe; color: #1d4ed8; }

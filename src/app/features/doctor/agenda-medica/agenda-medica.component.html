@@ -1,6 +1,16 @@
 <main class="agenda-page">
-  <div class="page-heading">
-    <div><p class="eyebrow">Panel médico</p><h1>Agenda de consultas</h1></div>
+  <header class="page-heading">
+    <div><p class="eyebrow">Espacio profesional · Agenda clínica</p><h1>Tu jornada, bajo control.</h1><p class="heading-copy">Gestiona tus atenciones y acompaña a cada paciente con claridad.</p></div>
+    <div class="doctor-mark" aria-hidden="true">✚</div>
+  </header>
+  <section class="daily-overview" aria-label="Resumen de la agenda">
+    <div class="overview-title"><p class="eyebrow">Resumen de hoy</p><strong>{{ citasVisibles().length }} citas programadas</strong></div>
+    <article><span class="overview-icon pending-icon">◷</span><div><strong>{{ pendientes() }}</strong><small>Pendientes</small></div></article>
+    <article><span class="overview-icon confirmed-icon">✓</span><div><strong>{{ confirmadas() }}</strong><small>Confirmadas</small></div></article>
+    <article><span class="overview-icon attended-icon">✦</span><div><strong>{{ atendidas() }}</strong><small>Atendidas</small></div></article>
+  </section>
+  <div class="toolbar">
+    <div><p class="eyebrow">Agenda diaria</p><h2>Próximas atenciones</h2></div>
     <label>Filtrar por fecha <input type="date" [value]="fechaFiltro()" (input)="fechaFiltro.set($any($event.target).value)" /></label>
   </div>
   <div class="table-wrap">
@@ -11,11 +21,11 @@
           <tr>
             <td>{{ cita.pacienteNombre }}<small>{{ cita.pacienteDni }}</small></td>
             <td>{{ cita.fecha }}</td><td>{{ cita.hora }}</td><td>{{ cita.especialidad }}</td>
-            <td><span class="status">{{ cita.estado }}</span></td>
+            <td><span class="status" [class.status-pending]="cita.estado === 'PENDIENTE'" [class.status-attended]="cita.estado === 'ATENDIDA'" [class.status-cancelled]="cita.estado === 'CANCELADA'">{{ cita.estado }}</span></td>
             <td class="actions">
-              <button type="button" (click)="actualizarEstado(cita, 'CONFIRMADA')">Confirmar</button>
-              <button type="button" (click)="actualizarEstado(cita, 'ATENDIDA')">Atendida</button>
-              <button type="button" class="danger" (click)="actualizarEstado(cita, 'CANCELADA')">Cancelar</button>
+              <button type="button" [disabled]="cita.estado === 'CONFIRMADA' || cita.estado === 'ATENDIDA' || cita.estado === 'CANCELADA'" (click)="actualizarEstado(cita, 'CONFIRMADA')">Confirmar</button>
+              <button type="button" [disabled]="cita.estado === 'ATENDIDA' || cita.estado === 'CANCELADA'" (click)="actualizarEstado(cita, 'ATENDIDA')">Atendida</button>
+              <button type="button" class="danger" [disabled]="cita.estado === 'CANCELADA' || cita.estado === 'ATENDIDA'" (click)="actualizarEstado(cita, 'CANCELADA')">Cancelar</button>
             </td>
           </tr>
         } @empty { <tr><td colspan="6" class="empty">No hay citas para esta fecha.</td></tr> }

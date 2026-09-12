@@ -1,16 +1,21 @@
 :host { display: block; }
-.agenda-page { margin: 0 auto; max-width: 1200px; padding: 3rem 1.25rem; }
-.page-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
-.eyebrow { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-h1 { color: #134e4a; margin: .4rem 0 0; }
-label { color: #24504c; display: grid; font-size: .8rem; font-weight: 700; gap: .35rem; }
-input { border: 1px solid #bad5d1; border-radius: 6px; min-height: 2.5rem; padding: 0 .6rem; }
-.table-wrap { background: #fff; border: 1px solid #d8ebe8; border-radius: 10px; overflow-x: auto; }
-table { border-collapse: collapse; min-width: 850px; width: 100%; }
-th, td { border-bottom: 1px solid #e2efed; padding: 1rem; text-align: left; }
-th { color: #52706e; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
-td { color: #24504c; font-size: .9rem; } td small { color: #6b8582; display: block; margin-top: .25rem; }
-.status { background: #ccfbf1; border-radius: 999px; color: #115e59; font-size: .75rem; font-weight: 800; padding: .35rem .55rem; }
-.actions { display: flex; gap: .4rem; } button { background: #ecfdf5; border: 1px solid #99f6e4; border-radius: 5px; color: #0f766e; cursor: pointer; padding: .45rem .55rem; } button.danger { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
-.empty { color: #6b8582; padding: 3rem; text-align: center; }
-@media (max-width: 700px) { .page-heading { align-items: start; flex-direction: column; gap: 1rem; } }
+.agenda-page { margin: 0 auto; max-width: 1200px; padding: clamp(2rem, 5vw, 4.5rem) 1.25rem 5rem; }
+.page-heading { align-items: center; background: linear-gradient(115deg, #103f3c, #176b65); border-radius: 18px; color: #fff; display: flex; justify-content: space-between; overflow: hidden; padding: clamp(1.5rem, 4vw, 2.5rem); position: relative; }.page-heading::after { border: 1px solid rgba(153, 246, 228, .25); border-radius: 50%; content: ''; height: 18rem; position: absolute; right: -5rem; top: -10rem; width: 18rem; }.page-heading .eyebrow { color: #99f6e4; }.page-heading h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.5rem); margin: .45rem 0 .7rem; }.heading-copy { color: #d0f5ee; margin: 0; }.doctor-mark { align-items: center; background: #5eead4; border-radius: 50%; color: #0f766e; display: flex; font-size: 2rem; height: 4rem; justify-content: center; position: relative; width: 4rem; z-index: 1; }
+.eyebrow { color: #0f766e; font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.daily-overview { align-items: center; background: #fff; border: 1px solid #d8ebe8; border-radius: 12px; box-shadow: 0 12px 28px rgba(15, 118, 110, .06); display: grid; gap: 1rem; grid-template-columns: 1.5fr repeat(3, 1fr); margin-top: 1.4rem; padding: 1.2rem; }.overview-title { padding: 0 .5rem; }.overview-title .eyebrow { margin: 0 0 .3rem; }.overview-title strong { color: #173c39; }.daily-overview article { align-items: center; border-left: 1px solid #e2efed; display: flex; gap: .7rem; padding-left: 1.1rem; }.overview-icon { align-items: center; border-radius: 7px; display: flex; font-weight: 800; height: 2.3rem; justify-content: center; width: 2.3rem; }.pending-icon { background: #fff4d6; color: #a16207; }.confirmed-icon { background: #ccfbf1; color: #0f766e; }.attended-icon { background: #e0f2fe; color: #0369a1; }.daily-overview article strong { color: #134e4a; display: block; font-size: 1.35rem; }.daily-overview small { color: #6b8582; font-size: .75rem; }
+.toolbar { align-items: end; display: flex; justify-content: space-between; margin: 3rem 0 1rem; }.toolbar .eyebrow { margin: 0 0 .3rem; }.toolbar h2 { color: #173c39; font-size: 1.35rem; margin: 0; }label { color: #24504c; display: grid; font-size: .8rem; font-weight: 700; gap: .35rem; }input { background: #fff; border: 1px solid #bad5d1; border-radius: 6px; min-height: 2.5rem; padding: 0 .6rem; }
+.table-wrap { background: rgba(255,255,255,.9); border: 1px solid #d8ebe8; border-radius: 12px; box-shadow: 0 12px 28px rgba(15, 118, 110, .05); overflow-x: auto; }table { border-collapse: collapse; min-width: 850px; width: 100%; }th, td { border-bottom: 1px solid #e2efed; padding: 1rem; text-align: left; }th { color: #52706e; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }td { color: #24504c; font-size: .9rem; }td small { color: #6b8582; display: block; margin-top: .25rem; }.status { background: #d9f7ef; border-radius: 999px; color: #115e59; font-size: .7rem; font-weight: 800; padding: .4rem .6rem; }.status-pending { background: #fff4d6; color: #a16207; }.status-attended { background: #e0f2fe; color: #0369a1; }.status-cancelled { background: #ffedd5; color: #c2410c; }.actions { display: flex; flex-wrap: wrap; gap: .4rem; }button { background: #ecfdf5; border: 1px solid #99f6e4; border-radius: 5px; color: #0f766e; cursor: pointer; padding: .45rem .55rem; }button.danger { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }.empty { color: #6b8582; padding: 3rem; text-align: center; }
+@media (max-width: 850px) { .daily-overview { grid-template-columns: repeat(3, 1fr); }.overview-title { grid-column: 1 / -1; }.daily-overview article:first-of-type { border-left: 0; } } @media (max-width: 620px) { .page-heading { align-items: start; }.doctor-mark { display: none; }.daily-overview { grid-template-columns: 1fr; }.daily-overview article { border-left: 0; border-top: 1px solid #e2efed; padding: .8rem 0 0; }.toolbar { align-items: start; flex-direction: column; gap: 1rem; } }
+
+.page-heading { background: linear-gradient(115deg, #12304a, #2563eb 72%, #e87961); }
+.page-heading .eyebrow { color: #dbeafe; }
+.doctor-mark { background: #f4a08d; color: #12304a; }
+.eyebrow { color: #2563eb; }
+.daily-overview, .table-wrap { border-color: #d5e2ee; box-shadow: 0 12px 28px rgba(18, 48, 74, .06); }
+.overview-title strong, .toolbar h2 { color: #12304a; }
+.pending-icon, .status-pending { background: #fff1cf; color: #a16207; }
+.confirmed-icon, .status { background: #dbeafe; color: #1d4ed8; }
+.attended-icon, .status-attended { background: #e0efff; color: #2563eb; }
+.status-cancelled { background: #fce7e1; color: #c2412d; }
+input { border-color: #bfd0df; color: #12304a; }
+button:disabled { cursor: not-allowed; opacity: .45; }

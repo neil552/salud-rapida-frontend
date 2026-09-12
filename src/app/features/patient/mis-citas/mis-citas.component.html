@@ -1,7 +1,7 @@
 <main class="appointments-page">
   <header class="page-heading">
     <div><p class="eyebrow">Área del paciente</p><h1>Mis citas</h1><p>Consulta el estado de tus reservas y gestiona tus próximas atenciones.</p></div>
-    <a class="new-link" routerLink="/paciente/reservar">+ Nueva cita</a>
+    <div class="heading-actions"><select aria-label="Filtrar citas por estado" [value]="filtroEstado()" (change)="filtroEstado.set($any($event.target).value)"><option value="TODAS">Todas las citas</option><option value="PENDIENTE">Pendientes</option><option value="CONFIRMADA">Confirmadas</option><option value="ATENDIDA">Atendidas</option><option value="CANCELADA">Canceladas</option></select><a class="new-link" routerLink="/paciente/reservar">+ Nueva cita</a></div>
   </header>
 
   @if (citasDelPaciente().length) {

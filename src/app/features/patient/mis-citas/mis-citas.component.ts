@@ -18,9 +18,13 @@ export class MisCitasComponent {
   private readonly notificationService = inject(NotificationService);
   private readonly authService = inject(AuthService);
   readonly citas = signal<CitaModel[]>([]);
+  readonly filtroEstado = signal<'TODAS' | CitaModel['estado']>('TODAS');
   readonly citasDelPaciente = computed(() => {
     const email = this.authService.getCurrentUser()?.email;
-    return this.citas().filter((cita) => cita.pacienteEmail === email);
+    const estado = this.filtroEstado();
+    return this.citas().filter((cita) =>
+      cita.pacienteEmail === email && (estado === 'TODAS' || cita.estado === estado)
+    );
   });
 
   constructor() {
@@ -29,6 +33,10 @@ export class MisCitasComponent {
 
   cancelar(cita: CitaModel): void {
     if (!cita.id || cita.estado === 'CANCELADA' || cita.estado === 'ATENDIDA') {
+      return;
+    }
+
+    if (!window.confirm(`¿Deseas cancelar la cita con ${cita.medicoNombre}?`)) {
       return;
     }
 
