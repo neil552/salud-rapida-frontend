@@ -4,6 +4,7 @@ describe('AuthService', () => {
   beforeEach(() => localStorage.clear());
 
   it('accepts valid credentials and persists the derived role', () => {
+    // El login debe actualizar tanto el estado reactivo como la sesión persistida.
     const service = new AuthService();
 
     expect(service.login('medico@saludrapida.pe', 'Medico123!')).toBe(true);
@@ -29,6 +30,7 @@ describe('AuthService', () => {
   });
 
   it('registers a patient in localStorage and allows login', () => {
+    // Una cuenta nueva debe poder autenticarse inmediatamente después del registro.
     const service = new AuthService();
 
     expect(service.registerPatient('Ana Pérez', 'ana@example.com', 'Paciente123!').success).toBe(true);

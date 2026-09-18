@@ -1,29 +1,168 @@
-:host { display: block; }
-.register-page { align-items: stretch; display: grid; gap: clamp(2rem, 7vw, 6rem); grid-template-columns: minmax(0, 1fr) minmax(380px, 500px); margin: 0 auto; max-width: 1180px; min-height: calc(100dvh - 145px); padding: clamp(3rem, 7vw, 6rem) 1.25rem; }
-.register-page::before { align-self: center; background: linear-gradient(140deg, #0f766e, #134e4a); border-radius: 22px; box-shadow: 0 24px 55px rgba(15, 118, 110, .2); color: #d9f7ef; content: 'Empieza a cuidar tu tiempo.\A Reserva, consulta y acompaña tu salud desde un solo lugar.'; display: flex; font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 4.2rem); font-weight: 600; line-height: 1; min-height: 36rem; padding: clamp(1.5rem, 5vw, 3rem); white-space: pre-wrap; }
-.register-panel { align-self: center; background: rgba(255, 255, 255, .88); border: 1px solid rgba(216, 235, 232, .95); border-radius: 18px; box-shadow: 0 24px 55px rgba(15, 118, 110, .12); max-width: 500px; padding: clamp(1.5rem, 5vw, 3rem); width: 100%; }
-.eyebrow { color: #0f766e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; margin: 0 0 .5rem; text-transform: uppercase; }
-h1 { color: #134e4a; font-size: 2.25rem; margin: 0 0 .75rem; }
-.intro, .login-link { color: #52706e; line-height: 1.5; }
-form { display: grid; gap: 1.1rem; margin-top: 2rem; }
-label { color: #24504c; display: grid; font-size: .9rem; font-weight: 700; gap: .45rem; }
-input { background: #fbfefd; border: 1px solid #bad5d1; border-radius: 6px; font: inherit; min-height: 3rem; padding: 0 .8rem; }
-input:focus { border-color: #0d9488; outline: 3px solid rgba(20, 184, 166, .2); }
-input.invalid { border-color: #c2410c; }
-.error, .register-error { color: #b45309; font-size: .8rem; }
-.register-error { font-weight: 700; margin: 0; }
-button { background: linear-gradient(135deg, #0f766e, #0d9488); border: 0; border-radius: 7px; box-shadow: 0 8px 16px rgba(13, 148, 136, .18); color: #fff; cursor: pointer; font: inherit; font-weight: 800; min-height: 3.1rem; } button:hover { box-shadow: 0 12px 22px rgba(13, 148, 136, .27); transform: translateY(-1px); }
-.login-link { font-size: .9rem; margin: 1.5rem 0 0; text-align: center; }
-a { color: #0f766e; font-weight: 800; }
-@media (max-width: 760px) { .register-page { display: flex; min-height: auto; padding: 2rem 1.25rem 4rem; } .register-page::before { display: none; } .register-panel { max-width: 520px; } }
+/* Distribución de registro y panel de bienvenida. */
+:host {
+  display: block;
+}
+.register-page {
+  align-items: stretch;
+  display: grid;
+  gap: clamp(2rem, 7vw, 6rem);
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 500px);
+  margin: 0 auto;
+  max-width: 1180px;
+  min-height: calc(100dvh - 145px);
+  padding: clamp(3rem, 7vw, 6rem) 1.25rem;
+}
+.register-page::before {
+  align-self: center;
+  background: linear-gradient(140deg, #0f766e, #134e4a);
+  border-radius: 22px;
+  box-shadow: 0 24px 55px rgba(15, 118, 110, 0.2);
+  color: #d9f7ef;
+  content: 'Empieza a cuidar tu tiempo.\A Reserva, consulta y acompaña tu salud desde un solo lugar.';
+  display: flex;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1;
+  min-height: 36rem;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  white-space: pre-wrap;
+}
+.register-panel {
+  align-self: center;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(216, 235, 232, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 24px 55px rgba(15, 118, 110, 0.12);
+  max-width: 500px;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  width: 100%;
+}
+.eyebrow {
+  color: #0f766e;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+h1 {
+  color: #134e4a;
+  font-size: 2.25rem;
+  margin: 0 0 0.75rem;
+}
+.intro,
+.login-link {
+  color: #52706e;
+  line-height: 1.5;
+}
+form {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 2rem;
+}
+label {
+  color: #24504c;
+  display: grid;
+  font-size: 0.9rem;
+  font-weight: 700;
+  gap: 0.45rem;
+}
+input {
+  background: #fbfefd;
+  border: 1px solid #bad5d1;
+  border-radius: 6px;
+  font: inherit;
+  min-height: 3rem;
+  padding: 0 0.8rem;
+}
+input:focus {
+  border-color: #0d9488;
+  outline: 3px solid rgba(20, 184, 166, 0.2);
+}
+input.invalid {
+  border-color: #c2410c;
+}
+.error,
+.register-error {
+  color: #b45309;
+  font-size: 0.8rem;
+}
+.register-error {
+  font-weight: 700;
+  margin: 0;
+}
+button {
+  background: linear-gradient(135deg, #0f766e, #0d9488);
+  border: 0;
+  border-radius: 7px;
+  box-shadow: 0 8px 16px rgba(13, 148, 136, 0.18);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  min-height: 3.1rem;
+}
+button:hover {
+  box-shadow: 0 12px 22px rgba(13, 148, 136, 0.27);
+  transform: translateY(-1px);
+}
+.login-link {
+  font-size: 0.9rem;
+  margin: 1.5rem 0 0;
+  text-align: center;
+}
+a {
+  color: #0f766e;
+  font-weight: 800;
+}
+/* En móvil el formulario ocupa una única columna. */
+@media (max-width: 760px) {
+  .register-page {
+    display: flex;
+    min-height: auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  .register-page::before {
+    display: none;
+  }
+  .register-panel {
+    max-width: 520px;
+  }
+}
 
-/* Clinical blue and coral visual theme */
-.register-page::before { background: linear-gradient(140deg, #12304a, #2563eb 70%, #e87961); color: #e0efff; }
-.register-panel { border-color: #d5e2ee; box-shadow: 0 24px 55px rgba(18, 48, 74, .12); }
-.eyebrow, a { color: #2563eb; }
-h1 { color: #12304a; }
-.intro, .login-link { color: #60758a; }
-input { border-color: #bfd0df; color: #12304a; }
-input:focus { border-color: #2563eb; outline-color: rgba(37, 99, 235, .2); }
-button { background: linear-gradient(135deg, #12304a, #2563eb); box-shadow: 0 8px 16px rgba(37, 99, 235, .2); }
-button:hover { box-shadow: 0 12px 22px rgba(37, 99, 235, .28); }
+/* Tema visual clínico azul y coral. */
+.register-page::before {
+  background: linear-gradient(140deg, #12304a, #2563eb 70%, #e87961);
+  color: #e0efff;
+}
+.register-panel {
+  border-color: #d5e2ee;
+  box-shadow: 0 24px 55px rgba(18, 48, 74, 0.12);
+}
+.eyebrow,
+a {
+  color: #2563eb;
+}
+h1 {
+  color: #12304a;
+}
+.intro,
+.login-link {
+  color: #60758a;
+}
+input {
+  border-color: #bfd0df;
+  color: #12304a;
+}
+input:focus {
+  border-color: #2563eb;
+  outline-color: rgba(37, 99, 235, 0.2);
+}
+button {
+  background: linear-gradient(135deg, #12304a, #2563eb);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+}
+button:hover {
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.28);
+}

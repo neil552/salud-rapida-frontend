@@ -15,6 +15,7 @@ export class BuscarMedicoComponent {
   readonly medicos = signal<MedicoModel[]>([]);
 
   constructor() {
+    // La lista se mantiene en una signal para actualizar la plantilla con OnPush.
     this.medicoService.getMedicos().subscribe((medicos) => this.medicos.set(medicos));
   }
 }

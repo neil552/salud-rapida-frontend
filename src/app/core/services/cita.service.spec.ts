@@ -5,6 +5,7 @@ describe('CitaService', () => {
   beforeEach(() => localStorage.clear());
 
   it('creates and exposes a new appointment', () => {
+    // Crear una cita debe emitir un identificador y reflejarla en el observable.
     const service = new CitaService();
     const cita: CitaModel = {
       pacienteNombre: 'Ana Pérez',
@@ -23,6 +24,7 @@ describe('CitaService', () => {
   });
 
   it('changes an appointment status and reports unknown ids', () => {
+    // Las transiciones existentes actualizan datos; los identificadores desconocidos devuelven false.
     const service = new CitaService();
     service.crearCita({
       pacienteNombre: 'Luis Díaz', pacienteDni: '87654321', pacienteEmail: 'luis@example.com',

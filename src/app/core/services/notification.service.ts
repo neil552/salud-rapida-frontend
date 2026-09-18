@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
+  // Subject evita almacenar avisos antiguos: solo interesa notificar eventos nuevos.
   private readonly notificationSubject = new Subject<string>();
 
   readonly onNotification$ = this.notificationSubject.asObservable();

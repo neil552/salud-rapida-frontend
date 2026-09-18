@@ -1,6 +1,82 @@
-.app-footer { background: #12304a; color: #dbeafe; font-size: .8rem; padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 1.25rem; }
-.footer-inner { display: grid; gap: 2rem; grid-template-columns: 1.5fr 1fr 1fr; margin: 0 auto; max-width: 1180px; }
-.footer-brand { align-items: center; display: flex; gap: .75rem; }.footer-brand strong { color: #fff; display: block; font-size: 1rem; }.footer-brand small { color: #f4a08d; font-size: .65rem; letter-spacing: .08em; }.footer-brand p, .footer-column p { color: #adc5d9; margin: .4rem 0 0; }.brand-mark { align-items: center; background: linear-gradient(135deg, #2563eb, #e87961); border-radius: 8px; color: #fff; display: flex; flex: 0 0 auto; font-size: 1.5rem; height: 2.3rem; justify-content: center; width: 2.3rem; }
-.footer-label { color: #f4a08d; font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }.footer-column p { line-height: 1.5; }
-.footer-bottom { border-top: 1px solid rgba(219, 234, 254, .16); color: #88a7c0; display: flex; justify-content: space-between; margin: 2rem auto 0; max-width: 1180px; padding-top: 1rem; }
-@media (max-width: 650px) { .footer-inner { grid-template-columns: 1fr; gap: 1.25rem; }.footer-bottom { flex-direction: column; gap: .4rem; } }
+/* Identidad, columnas informativas y pie legal. */
+.app-footer {
+  background: #12304a;
+  color: #dbeafe;
+  font-size: 0.8rem;
+  padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 1.25rem;
+}
+.footer-inner {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  margin: 0 auto;
+  max-width: 1180px;
+}
+.footer-brand {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+.brand-logo {
+  display: block;
+  flex: 0 0 auto;
+  height: 2.3rem;
+  width: 2.3rem;
+}
+.footer-brand strong {
+  color: #fff;
+  display: block;
+  font-size: 1rem;
+}
+.footer-brand small {
+  color: #f4a08d;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+.footer-brand p,
+.footer-column p {
+  color: #adc5d9;
+  margin: 0.4rem 0 0;
+}
+.brand-mark {
+  align-items: center;
+  background: linear-gradient(135deg, #2563eb, #e87961);
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  height: 2.3rem;
+  justify-content: center;
+  width: 2.3rem;
+}
+.footer-label {
+  color: #f4a08d;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.footer-column p {
+  line-height: 1.5;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(219, 234, 254, 0.16);
+  color: #88a7c0;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem auto 0;
+  max-width: 1180px;
+  padding-top: 1rem;
+}
+/* En móvil las columnas se convierten en una sola lectura vertical. */
+@media (max-width: 650px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}

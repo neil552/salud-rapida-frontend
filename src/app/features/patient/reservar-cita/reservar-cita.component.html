@@ -1,4 +1,5 @@
 <main class="page-shell">
+  <!-- Regreso al buscador sin perder la navegación del paciente. -->
   <a class="back-link" routerLink="/paciente/buscar">&larr; Volver a buscar médicos</a>
   <section class="form-intro">
     <p class="eyebrow">Salud Rápida S.A.</p>
@@ -6,6 +7,7 @@
     <p>Completa tus datos y elige el horario que mejor se adapte a ti.</p>
   </section>
 
+  <!-- Selección progresiva del médico, horario y datos del paciente. -->
   <form class="booking-form" [formGroup]="reservaForm" (ngSubmit)="enviarReserva()" novalidate>
     <div class="form-grid">
       <label>
@@ -16,7 +18,9 @@
             <option [value]="especialidad">{{ especialidad }}</option>
           }
         </select>
-        @if (campoInvalido('especialidad')) { <span class="error">Selecciona una especialidad.</span> }
+        @if (campoInvalido('especialidad')) {
+          <span class="error">Selecciona una especialidad.</span>
+        }
       </label>
 
       <label>
@@ -27,21 +31,37 @@
             <option [ngValue]="medico.id">{{ medico | doctorFormat }}</option>
           }
         </select>
-        @if (campoInvalido('medicoId')) { <span class="error">Selecciona un médico.</span> }
+        @if (campoInvalido('medicoId')) {
+          <span class="error">Selecciona un médico.</span>
+        }
       </label>
 
       <label>
         Fecha
-        <input type="date" formControlName="fecha" [min]="fechaMinima" [class.invalid]="campoInvalido('fecha')" />
-        @if (campoInvalido('fecha')) { <span class="error">Selecciona una fecha válida.</span> }
+        <input
+          type="date"
+          formControlName="fecha"
+          [min]="fechaMinima"
+          [class.invalid]="campoInvalido('fecha')"
+        />
+        @if (campoInvalido('fecha')) {
+          <span class="error">Selecciona una fecha válida.</span>
+        }
       </label>
 
       <div class="full-width visual-picker">
         <span class="field-title">Próximos días disponibles</span>
         <div class="date-grid" aria-label="Seleccionar fecha de cita">
           @for (fecha of fechasDisponibles; track fecha.value) {
-            <button type="button" class="date-option" [class.selected]="reservaForm.controls.fecha.value === fecha.value" [appHighlightSlot]="reservaForm.controls.fecha.value === fecha.value" (click)="seleccionarFecha(fecha.value)">
-              <span>{{ fecha.dia }}</span><strong>{{ fecha.numero }}</strong>
+            <button
+              type="button"
+              class="date-option"
+              [class.selected]="reservaForm.controls.fecha.value === fecha.value"
+              [appHighlightSlot]="reservaForm.controls.fecha.value === fecha.value"
+              (click)="seleccionarFecha(fecha.value)"
+            >
+              <span>{{ fecha.dia }}</span
+              ><strong>{{ fecha.numero }}</strong>
             </button>
           }
         </div>
@@ -52,10 +72,14 @@
         <select formControlName="hora" [class.invalid]="campoInvalido('hora')">
           <option value="">Selecciona un horario</option>
           @for (hora of medicoSeleccionado()?.disponibilidad ?? []; track hora) {
-            <option [value]="hora" [appHighlightSlot]="reservaForm.controls.hora.value === hora">{{ hora }}</option>
+            <option [value]="hora" [appHighlightSlot]="reservaForm.controls.hora.value === hora">
+              {{ hora }}
+            </option>
           }
         </select>
-        @if (campoInvalido('hora')) { <span class="error">Selecciona un horario.</span> }
+        @if (campoInvalido('hora')) {
+          <span class="error">Selecciona un horario.</span>
+        }
       </label>
 
       @if (medicoSeleccionado(); as medico) {
@@ -63,7 +87,20 @@
           <span class="field-title">Horarios de {{ medico.nombreCompleto }}</span>
           <div class="time-grid" aria-label="Seleccionar horario de cita">
             @for (hora of medico.disponibilidad; track hora) {
-              <button type="button" class="time-option" [class.selected]="reservaForm.controls.hora.value === hora" [class.occupied]="horarioEstaOcupado(hora)" [disabled]="horarioEstaOcupado(hora)" [appHighlightSlot]="reservaForm.controls.hora.value === hora" (click)="seleccionarHora(hora)">{{ hora }} @if (horarioEstaOcupado(hora)) { <small>Ocupado</small> }</button>
+              <button
+                type="button"
+                class="time-option"
+                [class.selected]="reservaForm.controls.hora.value === hora"
+                [class.occupied]="horarioEstaOcupado(hora)"
+                [disabled]="horarioEstaOcupado(hora)"
+                [appHighlightSlot]="reservaForm.controls.hora.value === hora"
+                (click)="seleccionarHora(hora)"
+              >
+                {{ hora }}
+                @if (horarioEstaOcupado(hora)) {
+                  <small>Ocupado</small>
+                }
+              </button>
             }
           </div>
         </div>
@@ -71,28 +108,56 @@
 
       <label>
         DNI
-        <input type="text" inputmode="numeric" maxlength="8" formControlName="pacienteDni" placeholder="12345678" [class.invalid]="campoInvalido('pacienteDni')" />
-        @if (campoInvalido('pacienteDni')) { <span class="error">Ingresa 8 dígitos numéricos.</span> }
+        <input
+          type="text"
+          inputmode="numeric"
+          maxlength="8"
+          formControlName="pacienteDni"
+          placeholder="12345678"
+          [class.invalid]="campoInvalido('pacienteDni')"
+        />
+        @if (campoInvalido('pacienteDni')) {
+          <span class="error">Ingresa 8 dígitos numéricos.</span>
+        }
       </label>
 
       <label>
         Nombre completo
-        <input type="text" formControlName="pacienteNombre" placeholder="Tu nombre completo" [class.invalid]="campoInvalido('pacienteNombre')" />
-        @if (campoInvalido('pacienteNombre')) { <span class="error">Ingresa al menos 3 caracteres.</span> }
+        <input
+          type="text"
+          formControlName="pacienteNombre"
+          placeholder="Tu nombre completo"
+          [class.invalid]="campoInvalido('pacienteNombre')"
+        />
+        @if (campoInvalido('pacienteNombre')) {
+          <span class="error">Ingresa al menos 3 caracteres.</span>
+        }
       </label>
 
       <label class="full-width">
         Correo electrónico
-        <input type="email" formControlName="pacienteEmail" placeholder="nombre@correo.com" [class.invalid]="campoInvalido('pacienteEmail')" />
-        @if (campoInvalido('pacienteEmail')) { <span class="error">Ingresa un correo válido.</span> }
+        <input
+          type="email"
+          formControlName="pacienteEmail"
+          placeholder="nombre@correo.com"
+          [class.invalid]="campoInvalido('pacienteEmail')"
+        />
+        @if (campoInvalido('pacienteEmail')) {
+          <span class="error">Ingresa un correo válido.</span>
+        }
       </label>
     </div>
 
+    <!-- El resumen solo aparece cuando ya existe un médico seleccionado. -->
     @if (medicoSeleccionado(); as medico) {
       <aside class="booking-summary" aria-label="Resumen de la reserva">
         <span class="summary-label">Resumen de tu reserva</span>
         <strong>{{ medico.nombreCompleto }}</strong>
-        <span>{{ medico.especialidad }} · {{ reservaForm.controls.fecha.value || 'Selecciona una fecha' }} · {{ reservaForm.controls.hora.value || 'Selecciona un horario' }}</span>
+        <span
+          >{{ medico.especialidad }} ·
+          {{ reservaForm.controls.fecha.value || 'Selecciona una fecha' }} ·
+          {{ reservaForm.controls.hora.value || 'Selecciona un horario' }}</span
+        >
       </aside>
     }
     <button class="primary-button" type="submit">Confirmar reserva</button>

@@ -7,6 +7,7 @@ export class FechaCortaPipe implements PipeTransform {
       return '';
     }
 
+    // Mediodía local evita que la conversión UTC desplace la fecha mostrada.
     const fechaLocal = new Date(`${fecha}T12:00:00`);
     return new Intl.DateTimeFormat('es-PE', {
       weekday: 'long',

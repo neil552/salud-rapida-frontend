@@ -32,6 +32,7 @@ export class ProfileComponent {
   }
 
   guardar(): void {
+    // El perfil comparte validaciones con el registro antes de persistir cambios.
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
       return;
@@ -49,6 +50,7 @@ export class ProfileComponent {
 
     this.error.set('');
     this.citaService.actualizarDatosPaciente(emailAnterior, nombre.trim(), email.trim().toLowerCase());
+    // Las citas existentes se actualizan para conservar la relación con el paciente.
     this.guardado.set(true);
     this.notificationService.notify('Perfil actualizado correctamente.');
   }

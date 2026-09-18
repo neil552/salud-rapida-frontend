@@ -8,6 +8,7 @@ export class DoctorFormatPipe implements PipeTransform {
       return '';
     }
 
+    // Centraliza el formato que se repite al seleccionar un médico.
     return `Dr. ${medico.nombreCompleto} — ${medico.especialidad} (CMP ${medico.cmp})`;
   }
 }

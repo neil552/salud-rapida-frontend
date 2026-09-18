@@ -1,3 +1,4 @@
+// Datos que necesita el buscador y el selector de horarios de reserva.
 export interface MedicoModel {
   id: number;
   nombreCompleto: string;

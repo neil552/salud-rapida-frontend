@@ -24,6 +24,7 @@ export class RegisterComponent {
   });
 
   registrar(): void {
+    // Primero se validan reglas del formulario y después la igualdad entre contraseñas.
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;

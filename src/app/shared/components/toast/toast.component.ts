@@ -14,6 +14,7 @@ export class ToastComponent {
 
   constructor() {
     this.notificationService.onNotification$.subscribe((message) => {
+      // Reiniciar el temporizador permite que cada aviso permanezca visible 4.5 segundos.
       this.message.set(message);
       if (this.dismissTimer) {
         clearTimeout(this.dismissTimer);

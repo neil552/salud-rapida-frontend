@@ -1,5 +1,6 @@
 import { MedicoModel } from '../models/medico.model';
 
+// Datos locales usados por mockApiInterceptor mientras no existe un backend.
 export const MOCK_MEDICOS: MedicoModel[] = [
   {
     id: 1,

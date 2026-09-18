@@ -20,6 +20,7 @@ export class MisCitasComponent {
   readonly citas = signal<CitaModel[]>([]);
   readonly filtroEstado = signal<'TODAS' | CitaModel['estado']>('TODAS');
   readonly citasDelPaciente = computed(() => {
+    // El paciente solo ve sus citas y puede aplicar un filtro por estado.
     const email = this.authService.getCurrentUser()?.email;
     const estado = this.filtroEstado();
     return this.citas().filter((cita) =>
@@ -32,6 +33,7 @@ export class MisCitasComponent {
   }
 
   cancelar(cita: CitaModel): void {
+    // Las citas finalizadas o ya canceladas no admiten nuevas transiciones.
     if (!cita.id || cita.estado === 'CANCELADA' || cita.estado === 'ATENDIDA') {
       return;
     }

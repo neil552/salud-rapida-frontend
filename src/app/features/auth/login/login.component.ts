@@ -23,6 +23,7 @@ export class LoginComponent {
   });
 
   ingresar(): void {
+    // La validación del formulario evita consultar el servicio con datos incompletos.
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -37,6 +38,7 @@ export class LoginComponent {
 
     this.error.set('');
     const rol = this.authService.getCurrentUser()?.rol;
+    // Cada rol entra directamente en la vista que puede utilizar.
     const destino = rol === 'MEDICO' ? '/medico/agenda' : rol === 'ADMIN' ? '/admin/dashboard' : '/paciente/buscar';
     void this.router.navigateByUrl(destino);
   }

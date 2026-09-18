@@ -1,5 +1,6 @@
 export type EstadoCita = 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA' | 'ATENDIDA';
 
+// Contrato común para reservas, agenda médica y panel administrativo.
 export interface CitaModel {
   id?: string;
   pacienteNombre: string;

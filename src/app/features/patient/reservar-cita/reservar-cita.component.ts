@@ -36,6 +36,7 @@ export class ReservarCitaComponent {
   readonly medicoSeleccionado = signal<MedicoModel | undefined>(undefined);
   readonly fechaMinima = new Date().toISOString().slice(0, 10);
   readonly fechasDisponibles = Array.from({ length: 14 }, (_, index) => {
+    // Se ofrece una ventana de dos semanas, calculada en la zona horaria local.
     const fecha = new Date();
     fecha.setHours(12, 0, 0, 0);
     fecha.setDate(fecha.getDate() + index);
@@ -61,6 +62,7 @@ export class ReservarCitaComponent {
 
   constructor() {
     const usuario = this.authService.getCurrentUser();
+    // Para un paciente autenticado, los datos personales se rellenan desde su sesión.
     if (usuario?.rol === 'PACIENTE') {
       this.reservaForm.patchValue({
         pacienteNombre: usuario.nombre,
@@ -71,6 +73,7 @@ export class ReservarCitaComponent {
     this.medicoService.getMedicos().pipe(take(1)).subscribe((medicos) => this.medicos.set(medicos));
 
     this.reservaForm.controls.especialidad.valueChanges.subscribe((especialidad) => {
+      // Cambiar de especialidad invalida las selecciones dependientes actuales.
       this.especialidadSeleccionada.set(especialidad);
       this.reservaForm.controls.medicoId.setValue(0);
       this.medicoSeleccionado.set(undefined);
@@ -96,6 +99,7 @@ export class ReservarCitaComponent {
   }
 
   seleccionarHora(hora: string): void {
+    // Un horario ocupado no puede seleccionarse aunque aparezca en la interfaz.
     if (this.horarioEstaOcupado(hora)) {
       return;
     }
@@ -118,6 +122,7 @@ export class ReservarCitaComponent {
     const valores = this.reservaForm.getRawValue();
     const usuario = this.authService.getCurrentUser();
     const medico = this.medicoSeleccionado();
+    // El médico se obtiene de la selección reactiva para evitar datos inconsistentes.
     if (!medico) {
       return;
     }

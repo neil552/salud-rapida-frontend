@@ -24,6 +24,7 @@ export class AgendaMedicaComponent {
   }
 
   citasFiltradas(): CitaModel[] {
+    // El médico solo consulta sus citas; opcionalmente puede limitar el día visible.
     const fecha = this.fechaFiltro();
     const medicoId = this.authService.getCurrentUser()?.medicoId;
     return this.citas().filter((cita) =>

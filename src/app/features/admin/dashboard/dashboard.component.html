@@ -1,20 +1,99 @@
 <main class="dashboard-page">
+  <!-- Encabezado del panel y contexto de la actividad administrativa. -->
   <header class="dashboard-heading">
-    <div><p class="eyebrow">Centro de control · 11 SEP 2026</p><h1>Resumen operativo</h1><p>Supervisa el pulso de tus reservas médicas en un solo lugar.</p></div>
+    <div>
+      <p class="eyebrow">Centro de control · 11 SEP 2026</p>
+      <h1>Resumen operativo</h1>
+      <p>Supervisa el pulso de tus reservas médicas en un solo lugar.</p>
+    </div>
     <div class="heading-mark" aria-hidden="true">✦</div>
   </header>
+  <!-- Indicadores agregados de las citas almacenadas. -->
   <section class="metrics" aria-label="Resumen de citas">
-    <article class="metric-card total"><div class="metric-top"><span>Total de citas</span><span class="metric-icon">◌</span></div><strong>{{ citas().length }}</strong><small>Reservas registradas</small></article>
-    <article class="metric-card pending"><div class="metric-top"><span>Pendientes</span><span class="metric-icon">◷</span></div><strong>{{ contarPorEstado('PENDIENTE') }}</strong><div class="progress"><i [style.width.%]="porcentajePendientes()"></i></div><small>{{ porcentajePendientes() }}% del total</small></article>
-    <article class="metric-card confirmed"><div class="metric-top"><span>Confirmadas</span><span class="metric-icon">✓</span></div><strong>{{ contarPorEstado('CONFIRMADA') }}</strong><div class="progress"><i [style.width.%]="porcentajeConfirmadas()"></i></div><small>{{ porcentajeConfirmadas() }}% del total</small></article>
-    <article class="metric-card attended"><div class="metric-top"><span>Atendidas</span><span class="metric-icon">✦</span></div><strong>{{ contarPorEstado('ATENDIDA') }}</strong><small>Consultas completadas</small></article>
+    <article class="metric-card total">
+      <div class="metric-top"><span>Total de citas</span><span class="metric-icon">◌</span></div>
+      <strong>{{ citas().length }}</strong
+      ><small>Reservas registradas</small>
+    </article>
+    <article class="metric-card pending">
+      <div class="metric-top"><span>Pendientes</span><span class="metric-icon">◷</span></div>
+      <strong>{{ contarPorEstado('PENDIENTE') }}</strong>
+      <div class="progress"><i [style.width.%]="porcentajePendientes()"></i></div>
+      <small>{{ porcentajePendientes() }}% del total</small>
+    </article>
+    <article class="metric-card confirmed">
+      <div class="metric-top"><span>Confirmadas</span><span class="metric-icon">✓</span></div>
+      <strong>{{ contarPorEstado('CONFIRMADA') }}</strong>
+      <div class="progress"><i [style.width.%]="porcentajeConfirmadas()"></i></div>
+      <small>{{ porcentajeConfirmadas() }}% del total</small>
+    </article>
+    <article class="metric-card attended">
+      <div class="metric-top"><span>Atendidas</span><span class="metric-icon">✦</span></div>
+      <strong>{{ contarPorEstado('ATENDIDA') }}</strong
+      ><small>Consultas completadas</small>
+    </article>
   </section>
+  <!-- Tabla filtrable con el detalle de las reservas recientes. -->
   <section class="recent" aria-labelledby="recent-title">
-    <div class="section-heading"><div><p class="eyebrow">Actividad en vivo</p><h2 id="recent-title">Reservas recientes</h2></div><div class="section-tools"><select aria-label="Filtrar reservas por estado" [value]="filtroEstado()" (change)="filtroEstado.set($any($event.target).value)"><option value="TODAS">Todos los estados</option><option value="PENDIENTE">Pendientes</option><option value="CONFIRMADA">Confirmadas</option><option value="ATENDIDA">Atendidas</option><option value="CANCELADA">Canceladas</option></select><span class="live-indicator"><i></i> Actualizado</span></div></div>
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Actividad en vivo</p>
+        <h2 id="recent-title">Reservas recientes</h2>
+      </div>
+      <div class="section-tools">
+        <select
+          aria-label="Filtrar reservas por estado"
+          [value]="filtroEstado()"
+          (change)="filtroEstado.set($any($event.target).value)"
+        >
+          <option value="TODAS">Todos los estados</option>
+          <option value="PENDIENTE">Pendientes</option>
+          <option value="CONFIRMADA">Confirmadas</option>
+          <option value="ATENDIDA">Atendidas</option>
+          <option value="CANCELADA">Canceladas</option></select
+        ><span class="live-indicator"><i></i> Actualizado</span>
+      </div>
+    </div>
     @if (citasFiltradas().length) {
-      <div class="table-wrap"><table><thead><tr><th>Paciente</th><th>Profesional</th><th>Programación</th><th>Estado</th></tr></thead><tbody>
-        @for (cita of citasFiltradas(); track cita.id) { <tr><td><span class="avatar">{{ cita.pacienteNombre.charAt(0) }}</span><span>{{ cita.pacienteNombre }}</span></td><td>{{ cita.medicoNombre }}<small>{{ cita.especialidad }}</small></td><td>{{ cita.fecha }}<small>{{ cita.hora }}</small></td><td><span class="status" [class.status-pending]="cita.estado === 'PENDIENTE'" [class.status-attended]="cita.estado === 'ATENDIDA'" [class.status-cancelled]="cita.estado === 'CANCELADA'">{{ cita.estado }}</span></td></tr> }
-      </tbody></table></div>
-    } @else { <p class="empty">Todavía no hay citas registradas.</p> }
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Profesional</th>
+              <th>Programación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cita of citasFiltradas(); track cita.id) {
+              <tr>
+                <td>
+                  <span class="avatar">{{ cita.pacienteNombre.charAt(0) }}</span
+                  ><span>{{ cita.pacienteNombre }}</span>
+                </td>
+                <td>
+                  {{ cita.medicoNombre }}<small>{{ cita.especialidad }}</small>
+                </td>
+                <td>
+                  {{ cita.fecha }}<small>{{ cita.hora }}</small>
+                </td>
+                <td>
+                  <span
+                    class="status"
+                    [class.status-pending]="cita.estado === 'PENDIENTE'"
+                    [class.status-attended]="cita.estado === 'ATENDIDA'"
+                    [class.status-cancelled]="cita.estado === 'CANCELADA'"
+                    >{{ cita.estado }}</span
+                  >
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="empty">Todavía no hay citas registradas.</p>
+    }
   </section>
 </main>

@@ -1,31 +1,50 @@
 <header class="app-header">
+  <!-- La marca vuelve a la vista inicial del rol autenticado. -->
   @if (authService.usuario$ | async; as usuario) {
-  <a class="brand" [routerLink]="usuario.rol === 'ADMIN' ? '/admin/dashboard' : usuario.rol === 'MEDICO' ? '/medico/agenda' : '/paciente/buscar'" aria-label="Salud Rápida, inicio">
-    <span class="brand-mark" aria-hidden="true">+</span>
-    <span>Salud Rápida <small>S.A.</small></span>
-  </a>
+    <a
+      class="brand"
+      [routerLink]="
+        usuario.rol === 'ADMIN'
+          ? '/admin/dashboard'
+          : usuario.rol === 'MEDICO'
+            ? '/medico/agenda'
+            : '/paciente/buscar'
+      "
+      aria-label="Salud Rápida, inicio"
+    >
+      <img class="brand-logo" src="/logo-salud-rapida.svg" alt="" />
+      <span>Salud Rápida <small>S.A.</small></span>
+    </a>
   } @else {
-  <a class="brand" routerLink="/login" aria-label="Salud Rápida, inicio">
-    <span class="brand-mark" aria-hidden="true">+</span>
-    <span>Salud Rápida <small>S.A.</small></span>
-  </a>
+    <a class="brand" routerLink="/login" aria-label="Salud Rápida, inicio">
+      <img class="brand-logo" src="/logo-salud-rapida.svg" alt="" />
+      <span>Salud Rápida <small>S.A.</small></span>
+    </a>
   }
   @if (showNavigation()) {
-  <nav aria-label="Navegación principal">
-    @if (authService.usuario$ | async; as usuario) {
-      @if (usuario.rol === 'PACIENTE') {
-        <a routerLink="/paciente/buscar" routerLinkActive="active">Buscar médico</a>
-        <a routerLink="/paciente/reservar" routerLinkActive="active">Reservar cita</a>
-        <a routerLink="/paciente/mis-citas" routerLinkActive="active">Mis citas</a>
+    <!-- Los enlaces cambian según el rol y el estado de la sesión. -->
+    <nav aria-label="Navegación principal">
+      @if (authService.usuario$ | async; as usuario) {
+        @if (usuario.rol === 'PACIENTE') {
+          <a routerLink="/paciente/buscar" routerLinkActive="active">Buscar médico</a>
+          <a routerLink="/paciente/reservar" routerLinkActive="active">Reservar cita</a>
+          <a routerLink="/paciente/mis-citas" routerLinkActive="active">Mis citas</a>
+        }
+        @if (usuario.rol === 'MEDICO') {
+          <a routerLink="/medico/agenda" routerLinkActive="active">Mi agenda</a>
+        }
+        @if (usuario.rol === 'ADMIN') {
+          <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+        }
+        <button type="button" class="profile-trigger" (click)="abrirPerfil()">Mi perfil</button>
+        <button type="button" class="logout" (click)="cerrarSesion()">Salir</button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Ingresar</a>
       }
-      @if (usuario.rol === 'MEDICO') { <a routerLink="/medico/agenda" routerLinkActive="active">Mi agenda</a> }
-      @if (usuario.rol === 'ADMIN') { <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a> }
-      <button type="button" class="profile-trigger" (click)="abrirPerfil()">Mi perfil</button>
-      <button type="button" class="logout" (click)="cerrarSesion()">Salir</button>
-    } @else {
-      <a routerLink="/login" routerLinkActive="active">Ingresar</a>
-    }
-  </nav>
+    </nav>
   }
 </header>
-@if (profileOpen()) { <app-profile (closed)="cerrarPerfil()" /> }
+<!-- El perfil se muestra como modal sin abandonar la ruta actual. -->
+@if (profileOpen()) {
+  <app-profile (closed)="cerrarPerfil()" />
+}

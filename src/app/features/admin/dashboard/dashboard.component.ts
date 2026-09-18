@@ -13,10 +13,12 @@ export class DashboardComponent {
   readonly citas = signal<CitaModel[]>([]);
   readonly filtroEstado = signal<'TODAS' | CitaModel['estado']>('TODAS');
   readonly citasFiltradas = computed(() => {
+    // El administrador puede observar todas las citas o un estado concreto.
     const estado = this.filtroEstado();
     return this.citas().filter((cita) => estado === 'TODAS' || cita.estado === estado);
   });
   readonly porcentajeConfirmadas = computed(() => this.citas().length
+    // Se evita dividir entre cero cuando todavía no existen citas.
     ? Math.round((this.contarPorEstado('CONFIRMADA') / this.citas().length) * 100)
     : 0);
   readonly porcentajePendientes = computed(() => this.citas().length

@@ -19,12 +19,14 @@ export class NavbarComponent {
   readonly profileOpen = signal(false);
 
   constructor() {
+    // La barra se oculta únicamente en login y reacciona a las navegaciones posteriores.
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
       this.showNavigation.set((event as NavigationEnd).urlAfterRedirects !== '/login');
     });
   }
 
   cerrarSesion(): void {
+    // El servicio elimina la sesión persistida antes de que el router cambie de vista.
     this.authService.logout();
   }
 

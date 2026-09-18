@@ -28,12 +28,14 @@ const DEMO_CREDENTIALS: DemoCredential[] = [
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  // Las credenciales y los pacientes registrados simulan el backend de la demo.
   private readonly storageKey = 'salud-rapida.usuario';
   private readonly patientsKey = 'salud-rapida.pacientes';
   private readonly usuarioSubject = new BehaviorSubject<UsuarioModel | null>(null);
   readonly usuario$ = this.usuarioSubject.asObservable();
 
   constructor() {
+    // Recupera la sesión anterior para mantener al usuario autenticado al recargar.
     const usuarioGuardado = localStorage.getItem(this.storageKey);
     if (usuarioGuardado) {
       try {
@@ -45,6 +47,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): boolean {
+    // Se normaliza el correo para evitar diferencias por mayúsculas o espacios.
     const normalizedEmail = email.trim().toLowerCase();
     const credential = DEMO_CREDENTIALS.find(
       (item) => item.email === normalizedEmail && item.password === password
@@ -71,6 +74,7 @@ export class AuthService {
   }
 
   registerPatient(nombre: string, email: string, password: string): { success: boolean; message?: string } {
+    // Solo se permiten cuentas de paciente y no se reutilizan correos existentes.
     const normalizedEmail = email.trim().toLowerCase();
     const emailInUse = DEMO_CREDENTIALS.some((item) => item.email === normalizedEmail)
       || this.getRegisteredPatients().some((patient) => patient.email === normalizedEmail);
@@ -92,6 +96,7 @@ export class AuthService {
   }
 
   private getRegisteredPatients(): RegisteredPatient[] {
+    // Un almacenamiento corrupto no debe impedir que la aplicación vuelva a funcionar.
     const patients = localStorage.getItem(this.patientsKey);
     if (!patients) {
       return [];
@@ -120,6 +125,7 @@ export class AuthService {
   }
 
   updateProfile(nombre: string, email: string): { success: boolean; message?: string } {
+    // El cambio de perfil también actualiza las citas asociadas al paciente.
     const usuarioActual = this.usuarioSubject.value;
     if (!usuarioActual) {
       return { success: false, message: 'No hay una sesión activa.' };

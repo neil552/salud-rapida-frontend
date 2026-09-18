@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { MOCK_MEDICOS } from '../mocks/mock-database';
 
 export const mockApiInterceptor: HttpInterceptorFn = (request, next): Observable<HttpEvent<unknown>> => {
+  // Intercepta únicamente los endpoints de médicos; el resto sigue hacia la cadena HTTP.
   if (request.url === '/api/medicos' && request.method === 'GET') {
     return of(new HttpResponse({ status: 200, body: MOCK_MEDICOS }));
   }

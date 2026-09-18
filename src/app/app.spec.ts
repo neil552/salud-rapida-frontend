@@ -12,12 +12,14 @@ describe('App', () => {
   });
 
   it('should create the app', () => {
+    // Verifica que el componente raíz y sus imports standalone se puedan instanciar.
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should render the clinic brand', async () => {
+    // La marca es un elemento básico de la composición global de la aplicación.
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;

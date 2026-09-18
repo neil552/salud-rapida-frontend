@@ -10,6 +10,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    // El mock resuelve la API local y el interceptor de errores centraliza los fallos HTTP.
     provideHttpClient(withInterceptors([mockApiInterceptor, httpErrorInterceptor]))
   ]
 };

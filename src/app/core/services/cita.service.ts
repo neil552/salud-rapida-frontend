@@ -23,6 +23,7 @@ export class CitaService {
   private readonly citasSubject = new BehaviorSubject<CitaModel[]>(this.cargarCitas());
 
   private cargarCitas(): CitaModel[] {
+    // Las citas iniciales permiten utilizar la aplicación sin un servidor real.
     const citasGuardadas = localStorage.getItem(this.storageKey);
     if (!citasGuardadas) {
       return CITAS_INICIALES;
@@ -38,6 +39,7 @@ export class CitaService {
   }
 
   private guardarCitas(citas: CitaModel[]): void {
+    // BehaviorSubject mantiene la interfaz reactiva y localStorage conserva los datos.
     localStorage.setItem(this.storageKey, JSON.stringify(citas));
   }
 
@@ -46,6 +48,7 @@ export class CitaService {
   }
 
   horarioOcupado(medicoId: number, fecha: string, hora: string): boolean {
+    // Las citas canceladas liberan el horario y dejan de bloquear nuevas reservas.
     return this.citasSubject.value.some((cita) =>
       cita.medicoId === medicoId && cita.fecha === fecha && cita.hora === hora && cita.estado !== 'CANCELADA'
     );
@@ -62,6 +65,7 @@ export class CitaService {
   }
 
   crearCita(cita: CitaModel): Observable<CitaModel> {
+    // La cita se completa aquí para centralizar el identificador y el estado inicial.
     const nuevaCita: CitaModel = {
       ...cita,
       id: cita.id ?? crypto.randomUUID(),
@@ -79,6 +83,7 @@ export class CitaService {
   }
 
   cambiarEstado(id: string, estado: EstadoCita): Observable<boolean> {
+    // El booleano informa al componente si realmente se encontró la cita solicitada.
     let actualizada = false;
     const citas = this.citasSubject.value.map((cita) => {
       if (cita.id !== id) {
